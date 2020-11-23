@@ -1,6 +1,7 @@
 class Fibonacci:
     def __init__(self):
         pass
+      
     def hello(self, name):
         print(f'Hello', name)
 
@@ -12,7 +13,8 @@ class Fibonacci:
             i = i + 1
             print(fib2)
             if i == num:
-                break
+                break                
+                
 if __name__ =='__main__' :
     myfibo= Fibonacci()
     myfibo.hello('Bob')
