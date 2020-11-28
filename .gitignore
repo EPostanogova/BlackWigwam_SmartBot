@@ -117,6 +117,11 @@ venv.bak/
 .spyderproject
 .spyproject
 
+
+
+# pytype static type analyzer
+.pytype/
+
 # Rope project settings
 .ropeproject
 
@@ -136,3 +141,4 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
+
