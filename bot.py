@@ -3,7 +3,7 @@ class Fibonacci:
         pass
 
     def hello(self, name):
-        print(f'Hello', name)
+        print(f'Hello, {name}')
 
     def fibo(self, num):
         fib1 = fib2 = 1
@@ -14,6 +14,8 @@ class Fibonacci:
             print(fib2)
             if i = = num:
                 break
+                
+                
 if __name__ = ='__main__':
         myfibo = Fibonacci()
         myfibo.hello('Bob')
