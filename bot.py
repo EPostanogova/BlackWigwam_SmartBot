@@ -1,9 +1,6 @@
 import logging
 logging.basicConfig(level=logging.DEBUG)
-#assert bot_logger = logging.getLogger('bot')
-#bot_logger.level == logging.DEBUG
-#onsole_handler = logging.StreamHandler()
-#bot_logger.addHandler(console_handler)
+loger = logging.getLogger ('SmartBot')
 from aiogram import Bot, types
 from aiogram.dispatcher import Dispatcher
 from aiogram.utils import executor
