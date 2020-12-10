@@ -97,10 +97,14 @@ ipython_config.py
 # PEP 582; used by e.g. github.com/David-OConnor/pyflow
 __pypackages__/
 
+# Celery stuff
+celerybeat-schedule
+celerybeat.pid
 
+# SageMath parsed files
+*.sage.py
 
 # Environments
-e.g. venv
 .env
 .venv
 env/
@@ -114,5 +118,27 @@ venv.bak/
 .spyproject
 
 
+
 # pytype static type analyzer
 .pytype/
+
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# pytype static type analyzer
+.pytype/
+
+# Cython debug symbols
+cython_debug/
+
