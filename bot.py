@@ -1,22 +1,28 @@
-class Fibonacci:
-    def __init__(self):
-        pass
+import logging
 
-    def hello(self, name):
-        print(f'Hello, {name}')
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger ('SmartBot')
 
-    def fibo(self, num):
-        fib1 = fib2 = 1
-        i = 0
-        while i < num:
-            fib1, fib2 = fib2, fib1 + fib2
-            i = i + 1
-            print(fib2)
-            if i = = num:
-                break
-                
-                
-if __name__ = ='__main__':
-        myfibo = Fibonacci()
-        myfibo.hello('Bob')
-        myfibo.fibo(3)
+from aiogram import Bot, types
+from aiogram.dispatcher import Dispatcher
+from aiogram.utils import executor
+
+from config import TOKEN
+
+bot = Bot(token=TOKEN)
+dp = Dispatcher(bot)
+
+@dp.message_handler(commands=['start'])
+async def process_start_command(message: types.Message):
+    await message.reply("Привет!\nНапиши мне что-нибудь!")
+    
+@dp.message_handler(commands=['help'])
+async def process_help_command(message: types.Message):
+    await message.reply("Напиши мне что-нибудь, и я отпрпавлю этот текст тебе в ответ!")
+
+@dp.message_handler()
+async def echo_message(msg: types.Message):
+    await bot.send_message(msg.from_user.id, msg.text)
+
+if __name__ == '__main__':
+    executor.start_polling(dp)
