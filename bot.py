@@ -12,17 +12,18 @@ from config import TOKEN
 bot = Bot(token=TOKEN)
 dp = Dispatcher(bot)
 
+
 @dp.message_handler(commands=['start'])
 async def process_start_command(message: types.Message):
-    await message.reply("Привет!\nНапиши мне что-нибудь!")
+    await message.reply("С моей помощью Вы можете получить доступ к объекту под кодовым именем Wigwam")
     
 @dp.message_handler(commands=['help'])
 async def process_help_command(message: types.Message):
-    await message.reply("Напиши мне что-нибудь, и я отпрпавлю этот текст тебе в ответ!")
+    await message.reply("start - краткая информация о боте \n help - список команд с описанием")
 
 @dp.message_handler()
 async def echo_message(msg: types.Message):
-    await bot.send_message(msg.from_user.id, msg.text)
+    await bot.send_message(msg.from_user.id,"С моей помощью Вы можете получить доступ к объекту под кодовым именем Wigwam" )
 
 if __name__ == '__main__':
     executor.start_polling(dp)
