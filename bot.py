@@ -7,6 +7,7 @@ from aiogram import Bot, types
 from aiogram.dispatcher import Dispatcher
 from aiogram.utils import executor
 
+
 from config import TOKEN
 
 bot = Bot(token=TOKEN)
@@ -22,8 +23,14 @@ async def process_help_command(message: types.Message):
     await message.reply("start - краткая информация о боте \n help - список команд с описанием")
 
 @dp.message_handler()
-async def echo_message(msg: types.Message):
-    await bot.send_message(msg.from_user.id,"С моей помощью Вы можете получить доступ к объекту под кодовым именем Wigwam" )
+async def hello_response (msg: types.Message):
+    if 'привет' in msg.text.lower() :
+        await bot.send_message(msg.from_user.id,f"Здравствуй,{msg.from_user.first_name}!")
+    if 'пока' in msg.text.lower() :
+        await bot.send_message(msg.from_user.id, f"Прощай,{msg.from_user.first_name}!")
+    if 'до свидания' in msg.text.lower() :
+        await bot.send_message(msg.from_user.id, f"До новых встречь,{msg.from_user.first_name}!")
+
 
 if __name__ == '__main__':
     executor.start_polling(dp)
