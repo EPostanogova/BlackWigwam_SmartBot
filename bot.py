@@ -7,6 +7,7 @@ from aiogram import Bot, types
 from aiogram.dispatcher import Dispatcher
 from aiogram.utils import executor
 
+
 from config import TOKEN
 
 bot = Bot(token=TOKEN)
@@ -36,5 +37,6 @@ async def hello_response(msg: types.Message):
 async def sticker (message: types.Message):
     await message.reply("Крутой стикер! Я скоро тоже смогу их отправлять!")
 
+    
 if __name__ == '__main__':
     executor.start_polling(dp)
