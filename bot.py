@@ -1,7 +1,7 @@
 import logging
 
 logging.basicConfig(level=logging.DEBUG)
-logger = logging.getLogger ('SmartBot')
+logger = logging.getLogger('SmartBot')
 
 from aiogram import Bot, types
 from aiogram.dispatcher import Dispatcher
@@ -24,6 +24,7 @@ async def process_help_command(message: types.Message):
     await message.reply("start - краткая информация о боте \n"\
                         " help - список команд с описанием \n"\
                         "photo - получить мнгновенную фотографию вигвама \n")
+
 @dp.message_handler()
 async def hello_response(msg: types.Message):
     if 'привет' in msg.text.lower():
@@ -41,8 +42,6 @@ async def sticker (message: types.Message):
     print(message.sticker)
     await message.reply("Крутой стикер!")
     await bot.send_sticker(message.chat.id, sticker=stickers["Like"])
-
-
 
     
 if __name__ == '__main__':
