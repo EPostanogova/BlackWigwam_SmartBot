@@ -21,9 +21,9 @@ async def process_start_command(message: types.Message):
 
 @dp.message_handler(commands=['help'])
 async def process_help_command(message: types.Message):
-    await message.reply("start - краткая информация о боте \n help - список команд с описанием \n photo - ")
-
-
+    await message.reply("start - краткая информация о боте \n"\
+                        " help - список команд с описанием \n"\
+                        "photo - получить мнгновенную фотографию вигвама \n")
 @dp.message_handler()
 async def hello_response(msg: types.Message):
     if 'привет' in msg.text.lower():
