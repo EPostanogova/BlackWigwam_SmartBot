@@ -15,9 +15,9 @@ class Cameraman:
         ret, img = cap.read()
         cv2.imshow("camera", img)
 
-        #if cv2.waitKey(10) == 27:  # Клавиша Esc
+       
 
-        cv2.waitKey(10)
+        cv2.waitKey(0)
         cap.release()
         cv2.destroyAllWindows()
 
