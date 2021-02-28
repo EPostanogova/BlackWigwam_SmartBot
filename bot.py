@@ -10,7 +10,7 @@ from aiogram.utils import executor
 
 from stickers import stickers
 from config import TOKEN
-from cameraman import *
+from src.cameraman import Cameraman
 
 bot = Bot(token=TOKEN)
 dp = Dispatcher(bot)
