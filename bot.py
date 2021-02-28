@@ -30,7 +30,7 @@ async def process_help_command(message: types.Message):
 @dp.message_handler(commands=['photo'])
 async def process_photo_command(msg: types.Message):
     try:
-        get_image()
+        photo.get_image()
     except ValueError as err:
         await bot.send_message(msg.from_user.id,f"Изображение пустое, пожалуйста, проверьте подключение камеры",err)
         return
