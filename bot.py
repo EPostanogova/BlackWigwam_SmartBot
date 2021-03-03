@@ -1,5 +1,6 @@
 import logging
 
+
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger('SmartBot')
 
@@ -9,10 +10,11 @@ from aiogram.utils import executor
 
 from stickers import stickers
 from config import TOKEN
+from src.cameraman import Cameraman
 
 bot = Bot(token=TOKEN)
 dp = Dispatcher(bot)
-
+photo=Cameraman()
 
 @dp.message_handler(commands=['start'])
 async def process_start_command(message: types.Message):
@@ -24,6 +26,14 @@ async def process_help_command(message: types.Message):
     await message.reply("start - краткая информация о боте \n"\
                         " help - список команд с описанием \n"\
                         "photo - получить мнгновенную фотографию вигвама \n")
+
+@dp.message_handler(commands=['photo'])
+async def process_photo_command(msg: types.Message):
+    try:
+        photo.get_image()
+    except ValueError as err:
+        await bot.send_message(msg.from_user.id, f"Изображение пустое, пожалуйста, проверьте подключение камеры. {err}")
+        return
 
 @dp.message_handler()
 async def hello_response(msg: types.Message):

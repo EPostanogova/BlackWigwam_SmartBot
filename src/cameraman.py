@@ -11,8 +11,14 @@ class Cameraman:
         self.logger.info('объект Cameraman был успешно создан')
 
     def get_image(self):
+
         cap = cv2.VideoCapture(0)
+
         ret, img = cap.read()
+        if ret == False:
+            raise ValueError("Image is empty, please check the camera connection") from None
+        else:
+            logger.info('Изображение было успешно полученно')
         cv2.imshow("camera", img)
 
        
