@@ -16,7 +16,7 @@ class Cameraman:
 
         ret, img = cap.read()
         if ret == False:
-            raise ValueError("Image is empty, please check the camera connection")
+            raise ValueError("Image is empty, please check the camera connection") from None
         else:
             logger.info('Изображение было успешно полученно')
         cv2.imshow("camera", img)

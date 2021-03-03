@@ -32,7 +32,7 @@ async def process_photo_command(msg: types.Message):
     try:
         photo.get_image()
     except ValueError as err:
-        await bot.send_message(msg.from_user.id,f"Изображение пустое, пожалуйста, проверьте подключение камеры",err)
+        await bot.send_message(msg.from_user.id, f"Изображение пустое, пожалуйста, проверьте подключение камеры. {err}")
         return
 
 @dp.message_handler()
