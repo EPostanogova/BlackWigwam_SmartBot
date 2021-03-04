@@ -1,5 +1,6 @@
 import cv2
 import logging
+import hashlib
 logging.basicConfig(
             level=logging.INFO,
             format='%(asctime)s : %(levelname)s : %(message)s',
@@ -16,12 +17,19 @@ class Cameraman:
 
         ret, img = cap.read()
         if ret == False:
-            raise ValueError("Image is empty, please check the camera connection") from None
+            raise ValueError("Image is empty, please check the camera connection")
         else:
-            logger.info('Изображение было успешно полученно')
+            self.logger.info('Изображение было успешно полученно')
+
+
+        hash_object = hashlib.md5(img)
+        name_obj = hash_object.hexdigest()
+        msg1 = f' Имя фотографии сгенерировно: {name_obj}'
+        self.logger.info(msg1)
+
         cv2.imshow("camera", img)
 
-       
+
 
         cv2.waitKey(0)
         cap.release()
