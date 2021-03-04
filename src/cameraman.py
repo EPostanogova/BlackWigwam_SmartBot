@@ -17,15 +17,15 @@ class Cameraman:
 
         ret, img = cap.read()
         if ret == False:
-            raise ValueError("Image is empty, please check the camera connection") from None
+            raise ValueError("Image is empty, please check the camera connection")
         else:
-            logger.info('Изображение было успешно полученно')
+            self.logger.info('Изображение было успешно полученно')
 
-        obj = str(img)
-        hash_object = hashlib.md5(obj)
+
+        hash_object = hashlib.md5(img)
         name_obj = hash_object.hexdigest()
-        msg = f' Имя фотографии сгенерировно: {name_obj}'
-        logger.info(msg)
+        msg1 = f' Имя фотографии сгенерировно: {name_obj}'
+        self.logger.info(msg1)
 
         cv2.imshow("camera", img)
 
