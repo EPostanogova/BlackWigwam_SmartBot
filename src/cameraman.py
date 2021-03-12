@@ -6,6 +6,8 @@ logging.basicConfig(
             format='%(asctime)s : %(levelname)s : %(message)s',
             filemode='w',
         )
+image = 'F:/chenge/BlackWigwam_SmartBot/BlackWigwam_SmartBot_W/data/'
+
 class Cameraman:
     def __init__(self):
         self.logger = logging.getLogger('Camera')
@@ -26,6 +28,12 @@ class Cameraman:
         name_obj = hash_object.hexdigest()
         msg1 = f' Имя фотографии сгенерировно: {name_obj}'
         self.logger.info(msg1)
+
+
+        file_name = image + name_obj + ".jpg"
+        file = cv2.imwrite(file_name, img)
+        msg2 = f' Фотография успешно сохранена! Путь: {file_name}'
+        self.logger.info(msg2)
 
         cv2.imshow("camera", img)
 
