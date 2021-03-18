@@ -1,12 +1,17 @@
 import cv2
 import logging
 import hashlib
+import sys
+
+sys.path.append("../")
+from constants.settings import DATA_DIR
+
 logging.basicConfig(
             level=logging.INFO,
             format='%(asctime)s : %(levelname)s : %(message)s',
             filemode='w',
         )
-image = 'F:/chenge/BlackWigwam_SmartBot/BlackWigwam_SmartBot_W/data/'
+image = DATA_DIR
 
 class Cameraman:
     def __init__(self):
