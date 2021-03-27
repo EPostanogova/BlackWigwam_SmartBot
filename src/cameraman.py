@@ -3,8 +3,12 @@ import logging
 import hashlib
 import sys
 
+import os
+from os.path import join
+
 sys.path.append("../")
 from constants.settings import DATA_DIR
+
 
 logging.basicConfig(
             level=logging.INFO,
@@ -36,18 +40,13 @@ class Cameraman:
         self.logger.info(msg1)
 
 
-        file_name = image + name_obj + ".jpg"
+        #file_name = image + name_obj + ".jpg"
+        file_name = join(DATA_DIR, name_obj + ".jpg")
         file = cv2.imwrite(file_name, img)
         msg2 = f' Фотография успешно сохранена! Путь: {file_name}'
         self.logger.info(msg2)
 
-        cv2.imshow("camera", img)
 
-
-
-        cv2.waitKey(0)
-        cap.release()
-        cv2.destroyAllWindows()
 
 if __name__ == '__main__':
     test = Cameraman()
