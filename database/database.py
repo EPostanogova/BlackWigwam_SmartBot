@@ -21,3 +21,5 @@ class Database:
         except Error:
             self.logger.error("The error occurred")
 
+    def create_users_table(self):
+        
