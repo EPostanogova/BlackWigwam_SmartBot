@@ -16,8 +16,21 @@ class Database:
         self.logger = logging.getLogger('BD')
         self.db_path=db_path
         try:
-            con = sqlite3.connect(self.db_path)
+            self.con = sqlite3.connect(self.db_path)
+            self.cursorObj = self.con.cursor()
             self.logger.info("Connection to SQLite DB successful")
         except Error:
             self.logger.error("The error occurred")
+
+    def create_users_table(self):
+
+
+
+        try:
+            self.cursorObj.execute(
+                "CREATE TABLE IF NOT EXISTS Users(id integer PRIMARY KEY, user_id integer NOT NULL, first_name text NOT NULL , last_name text)")
+            self.con.commit()
+            self.logger.info("table created")
+        except Error:
+            self.logger.error("No table created")
 
