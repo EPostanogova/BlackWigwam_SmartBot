@@ -10,11 +10,15 @@ from aiogram.utils import executor
 from stickers import stickers
 from config import TOKEN
 from src.cameraman import Cameraman
+from database.database import Database
 
-bot = Bot(token=TOKEN)
+bot = Bot(token=TOKEN,proxy='http://10.128.0.90:8080')
 dp = Dispatcher(bot)
 photo = Cameraman()
 
+
+from constants.settings import DB_DATA
+DB=Database(db_path = DB_DATA)
 
 @dp.message_handler(commands=['start'])
 async def process_start_command(message: types.Message):
