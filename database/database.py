@@ -9,20 +9,15 @@ logging.basicConfig(
             filemode='w',
         )
 
-import os
-from os.path import join
-
-
-from constants.settings import DB_DATA
-
 
 class Database:
-    def __init__(self):
-        db_path = DB_DATA
+    def __init__(self,db_path):
+
         self.logger = logging.getLogger('BD')
+        self.db_path=db_path
         try:
-            con = sqlite3.connect(db_path)
+            con = sqlite3.connect(self.db_path)
             self.logger.info("Connection to SQLite DB successful")
-        except Error as e:
-            self.logger.error("The error '{e}' occurred")
+        except Error:
+            self.logger.error("The error occurred")
 
