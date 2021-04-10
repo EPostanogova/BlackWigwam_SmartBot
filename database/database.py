@@ -54,4 +54,13 @@ class Database:
         except Error:
             self.logger.error('err')
 
+    def drop_table(self,table_name):
+        try:
+            self.cursorObj.execute('DROP table if exists 'f'{table_name}''')
+            self.logger.info('Removed')
+        except Error:
+            self.logger.error('Not Removed')
+
+
+
 

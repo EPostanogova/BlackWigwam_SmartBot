@@ -31,6 +31,7 @@ async def process_start_command(message: types.Message):
 
     DB.add_new_user(user_info=info)
     DB.get_all_records(table_name='Users')
+    
 
 
 
