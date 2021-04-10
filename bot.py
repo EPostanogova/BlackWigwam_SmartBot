@@ -19,12 +19,18 @@ photo = Cameraman()
 
 from constants.settings import DB_DATA
 DB=Database(db_path = DB_DATA)
-
 DB.create_users_table()
 
 @dp.message_handler(commands=['start'])
 async def process_start_command(message: types.Message):
     await message.reply("С моей помощью Вы можете получить доступ к объекту под кодовым именем Wigwam")
+    info={'id':message.from_user.id,
+               'user_id':message.from_user.id,
+               'first_name':message.from_user.first_name,
+               'last_name':message.from_user.last_name}
+
+    DB.add_new_user(user_info=info)
+
 
 
 @dp.message_handler(commands=['help'])

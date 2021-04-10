@@ -33,12 +33,19 @@ class Database:
             self.logger.error("No table created")
 
     def add_new_user(self, user_info):
-        key = 'id' in user_info
-        if key==False:
-            raise KeyError ('Не найден ключ id')
-            INSERT IGNORE INTO TABLE( )
+        x=user_info['user_id']
+        y=user_info['first_name']
+        z=user_info['last_name']
 
-            self.cursorObj.execute('INSERT INTO Users(id,  user_id, first_name, last_name) VALUES(?, ?, ?, ?)''', user_info)
+        if 'id' not in user_info:
+            raise KeyError ('Not key found')
+        try:
+            self.cursorObj.execute('INSERT OR IGNORE INTO Users(user_id, first_name, last_name) VALUES(?,?,?)',(x,y,z))
+            self.con.commit()
+            self.logger.info('User added')
+        except Error as r:
+            self.logger.error('User not added',r)
+
 
 
 
