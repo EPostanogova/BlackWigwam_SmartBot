@@ -46,6 +46,12 @@ class Database:
         except Error as r:
             self.logger.error('User not added',r)
 
-
+    def get_all_records(self,table_name):
+        try:
+            self.cursorObj.execute('SELECT * FROM 'f'{table_name}''')
+            all_results= self.cursorObj.fetchall()
+            print(all_results)
+        except Error:
+            self.logger.error('err')
 
 
