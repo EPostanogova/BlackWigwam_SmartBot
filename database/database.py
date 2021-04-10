@@ -24,8 +24,6 @@ class Database:
 
     def create_users_table(self):
 
-
-
         try:
             self.cursorObj.execute(
                 "CREATE TABLE IF NOT EXISTS Users(id integer PRIMARY KEY, user_id integer NOT NULL, first_name text NOT NULL , last_name text)")
@@ -33,4 +31,14 @@ class Database:
             self.logger.info("table created")
         except Error:
             self.logger.error("No table created")
+
+    def add_new_user(self, user_info):
+        key = 'id' in user_info
+        if key==False:
+            raise KeyError ('Не найден ключ id')
+            INSERT IGNORE INTO TABLE( )
+
+            self.cursorObj.execute('INSERT INTO Users(id,  user_id, first_name, last_name) VALUES(?, ?, ?, ?)''', user_info)
+
+
 
