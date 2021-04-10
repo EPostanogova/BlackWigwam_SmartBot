@@ -20,6 +20,7 @@ photo = Cameraman()
 from constants.settings import DB_DATA
 DB=Database(db_path = DB_DATA)
 DB.create_users_table()
+DB.create_commands_table()
 
 @dp.message_handler(commands=['start'])
 async def process_start_command(message: types.Message):
@@ -31,7 +32,7 @@ async def process_start_command(message: types.Message):
 
     DB.add_new_user(user_info=info)
     DB.get_all_records(table_name='Users')
-    
+
 
 
 
