@@ -61,6 +61,17 @@ class Database:
         except Error:
             self.logger.error('Not Removed')
 
+    def create_commands_table(self):
+        try:
+            self.cursorObj.execute(
+                "CREATE TABLE IF NOT EXISTS Cmd_table(id integer PRIMARY KEY, command text NOT NULL, user_id integer , time_stamp TIMESTAMP)")
+            self.con.commit()
+            self.logger.info("cmd-table created")
+
+        except Error:
+            self.logger.error("No cmd-table created")
+
+
 
 
 
