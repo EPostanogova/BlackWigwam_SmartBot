@@ -1,4 +1,5 @@
 import logging
+import datetime
 
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger('SmartBot')
@@ -12,7 +13,7 @@ from config import TOKEN
 from src.cameraman import Cameraman
 from database.database import Database
 
-bot = Bot(token=TOKEN,proxy='http://10.128.0.90:8080')
+bot = Bot(token=TOKEN)#,proxy='http://10.128.0.90:8080')
 dp = Dispatcher(bot)
 photo = Cameraman()
 
@@ -25,13 +26,15 @@ DB.create_commands_table()
 @dp.message_handler(commands=['start'])
 async def process_start_command(message: types.Message):
     await message.reply("С моей помощью Вы можете получить доступ к объекту под кодовым именем Wigwam")
-    info={'id':message.from_user.id,
+    info_dir={'id':message.from_user.id,
                'user_id':message.from_user.id,
                'first_name':message.from_user.first_name,
-               'last_name':message.from_user.last_name}
+               'last_name':message.from_user.last_name,
+              'command':'start','time_stamp':datetime.datetime.now()}
 
-    DB.add_new_user(user_info=info)
+    DB.add_new_user(user_info=info_dir)
     DB.get_all_records(table_name='Users')
+    DB.add_command(info=info_dir)
 
 
 
