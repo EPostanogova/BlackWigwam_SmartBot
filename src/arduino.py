@@ -1,17 +1,19 @@
 import serial
 import time
+import logging
 
 class ArduinoConnector:
     def __init__(self,com_port,baudrate):
 
         self.logger = logging.getLogger('Arduino')
-        self.com_port="COM6"
-        self.baudrate=115200
+        self.com_port=com_port
+        self.baudrate=baudrate
         self.ser = serial.Serial(com_port,baudrate)
-    def echo(self,msg=input("Введите что-нибудь: ")):
+        time.sleep(5)
+    def echo(self,msg):
 
-        ser.write(msg)
+        self.ser.write(msg)
         time.sleep(1)
-        print (ser.readline())
-        ser.close()
+        msg_echo=self.ser.readline()
+        self.ser.close()
 
