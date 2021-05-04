@@ -8,12 +8,13 @@ class ArduinoConnector:
         self.logger = logging.getLogger('Arduino')
         self.com_port=com_port
         self.baudrate=baudrate
-        self.ser = serial.Serial(com_port,baudrate)
-        time.sleep(5)
+        self.ser = serial.Serial(com_port,baudrate,timeout=5)
+
     def echo(self,msg):
 
-        self.ser.write(msg)
+        self.ser.write(str.encode(msg))
         time.sleep(1)
         msg_echo=self.ser.readline()
         self.ser.close()
+        return  msg_echo
 
