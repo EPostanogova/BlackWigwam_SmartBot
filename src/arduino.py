@@ -14,7 +14,7 @@ class ArduinoConnector:
 
         self.ser.write(str.encode(msg))
         time.sleep(1)
-        msg_echo=self.ser.readline()
+        msg_echo= self.ser.read(self.ser.inWaiting())
         self.ser.close()
         return  msg_echo
 

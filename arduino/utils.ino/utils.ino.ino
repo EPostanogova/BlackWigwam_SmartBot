@@ -7,10 +7,8 @@ void echo(){
   
  if (Serial.available() > 0) { 
   String msg =Serial.readString();
-  Serial.println(msg);
-  Serial.write("Hello");
-  
-  
+  Serial.print(msg);
+
   
 }
 }
