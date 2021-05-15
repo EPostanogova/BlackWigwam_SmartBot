@@ -5,23 +5,22 @@ void setup() {
    Serial.begin(115200);
    dht.begin();
 }
-void get_temperature() {
+String get_temperature() {
    
   delay(2000);
   float t = dht.readTemperature();
   String T=String(t);
-  String msg = String("Температура:" + T +"*C");
-  Serial.println(msg);
+  return(T);
 }
 
-void get_humidity() {
+String get_humidity() {
    
   delay(2000);
   float h = dht.readHumidity();
-  Serial.print(h);
   String H=String(h);
-  String msg = String("Влажность:" + H +"%\t");
-  Serial.println(msg);
+  return(H);
+  
+  
 }
 
 void echo(){
@@ -32,7 +31,12 @@ void echo(){
 }
 void loop() {
   //echo();
-  get_temperature();
-  get_humidity();
-
+ 
+  String msg = Serial.readString();
+  if (msg ='h'){
+    Serial.println(get_humidity());
+  }
+  if (msg ='t'){
+    Serial.println(get_temperature());
+  }
 }
