@@ -12,11 +12,12 @@ from stickers import stickers
 from config import TOKEN
 from src.cameraman import Cameraman
 from database.database import Database
+from src.arduino import ArduinoConnector
 
 bot = Bot(token=TOKEN)#,proxy='http://10.128.0.90:8080')
 dp = Dispatcher(bot)
 photo = Cameraman()
-
+AC = ArduinoConnector(com_port='COM8', baudrate=115200)
 
 from constants.settings import DB_DATA
 DB=Database(db_path = DB_DATA)
@@ -32,7 +33,9 @@ def add_info_to_db(message, commands, DB):
     DB.add_new_user(user_info=info_dir)
     DB.add_command(info=info_dir)
     DB.get_all_records(table_name='Users')
-    DB.get_all_records(table_name='Cmd_table')
+    #DB.get_all_records(table_name='Cmd_table')
+    #DB.drop_table(table_name='Users')
+
 
 
 @dp.message_handler(commands=['start'])
@@ -61,6 +64,26 @@ async def process_photo_command(message: types.Message):
         await bot.send_message(message.from_user.id, f"Изображение пустое, пожалуйста, проверьте подключение камеры. {err}")
         return
     commands = 'photo'
+    add_info_to_db(message, commands, DB)
+
+@dp.message_handler(commands=['temperature'])
+async def process_photo_command(message: types.Message):
+    try:
+        await bot.send_message(message.from_user.id, f"Температура в Вигваме {AC.get_temperature(msg='t')} *C.")
+    except BufferError as err:
+        await bot.send_message(message.from_user.id, f"Невозможно получить данные. {err}")
+        return
+    commands = 'temperature'
+    add_info_to_db(message, commands, DB)
+
+@dp.message_handler(commands=['humidity'])
+async def process_photo_command(message: types.Message):
+    try:
+        await bot.send_message(message.from_user.id, f"Влажность в Вигваме {AC.get_humidity(msg='h')} %.")
+    except ValueError as err:
+        await bot.send_message(message.from_user.id, f"Невозможно получить данные. {err}")
+        return
+    commands = 'humidity'
     add_info_to_db(message, commands, DB)
 
 @dp.message_handler()
