@@ -48,7 +48,7 @@ class Database:
 
     def get_all_records(self,table_name):
         try:
-            self.cursorObj.execute('SELECT * FROM 'f'{table_name}''')
+            self.cursorObj.execute('SELECT  * FROM 'f'{table_name}''')
             all_results= self.cursorObj.fetchall()
             print(all_results)
         except Error:

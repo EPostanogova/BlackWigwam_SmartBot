@@ -7,7 +7,7 @@ void setup() {
 }
 String get_temperature() {
    
-  delay(2000);
+  delay(3000);
   float t = dht.readTemperature();
   String T=String(t);
   return(T);
@@ -15,7 +15,7 @@ String get_temperature() {
 
 String get_humidity() {
    
-  delay(2000);
+  delay(3000);
   float h = dht.readHumidity();
   String H=String(h);
   return(H);

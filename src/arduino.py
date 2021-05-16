@@ -33,10 +33,11 @@ class ArduinoConnector:
             cur_time = datetime.datetime.now()
             if (cur_time - start_time).total_seconds() >= timeout * 60:
                 break
-        self.ser.close()
-        return "Влажность" +" "+ msg_echo.decode()+'%'
+
+        return msg_echo.decode()
 
     def get_temperature(self,msg,timeout=3):
+
         msg_echo = ""
         start_time = datetime.datetime.now()
         while len(msg_echo) == 0:
@@ -45,5 +46,5 @@ class ArduinoConnector:
             cur_time = datetime.datetime.now()
             if (cur_time - start_time).total_seconds() >= timeout * 60:
                 break
-        self.ser.close()
-        return "Температура" +" "+ msg_echo.decode()+'*C'
+
+        return  msg_echo.decode()
