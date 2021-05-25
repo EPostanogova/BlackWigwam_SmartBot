@@ -48,3 +48,16 @@ class ArduinoConnector:
                 break
 
         return  msg_echo.decode()
+
+    def detector(self,msg,timeout=3):
+
+        msg_echo = ""
+        start_time = datetime.datetime.now()
+        while len(msg_echo) == 0:
+            self.ser.write(str.encode(msg))
+            msg_echo = self.ser.readline()
+            cur_time = datetime.datetime.now()
+            if (cur_time - start_time).total_seconds() >= timeout * 60:
+                break
+
+        return  msg_echo.decode()

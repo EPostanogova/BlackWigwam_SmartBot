@@ -1,5 +1,7 @@
 import logging
 import datetime
+import aioschedule
+import asyncio
 
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger('SmartBot')
@@ -18,6 +20,9 @@ bot = Bot(token=TOKEN)#,proxy='http://10.128.0.90:8080')
 dp = Dispatcher(bot)
 photo = Cameraman()
 AC = ArduinoConnector(com_port='COM8', baudrate=115200)
+
+global CHAT_ID
+CHAT_ID = None
 
 from constants.settings import DB_DATA
 DB=Database(db_path = DB_DATA)
@@ -43,6 +48,9 @@ async def process_start_command(message: types.Message):
     await message.reply("С моей помощью Вы можете получить доступ к объекту под кодовым именем Wigwam")
     commands='start'
     add_info_to_db(message, commands, DB)
+    global CHAT_ID
+    CHAT_ID = message.chat.id
+
 
 
 
@@ -98,6 +106,21 @@ async def hello_response(msg: types.Message):
         await bot.send_message(msg.from_user.id, f"До новых встреч, {msg.from_user.first_name}!")
         await bot.send_sticker(msg.chat.id, sticker=stickers["LoveBye"])
 
+async def spammer():
+    global CHAT_ID
+    if CHAT_ID is not None:
+     await bot.send_message(chat_id=CHAT_ID, text=AC.detector(msg='c'))
+
+async def scheduler():
+   aioschedule.every(30).seconds.do(spammer)
+   while True:
+       await aioschedule.run_pending()
+       await asyncio.sleep(1)
+
+
+async def on_startup(_):
+  asyncio.create_task(scheduler())
+
 
 @dp.message_handler(content_types=["sticker"])
 async def sticker(message: types.Message):
@@ -107,4 +130,4 @@ async def sticker(message: types.Message):
 
 
 if __name__ == '__main__':
-    executor.start_polling(dp)
+    executor.start_polling(dp, skip_updates=True, on_startup=on_startup)
