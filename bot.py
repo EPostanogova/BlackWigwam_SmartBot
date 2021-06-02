@@ -38,7 +38,7 @@ def add_info_to_db(message, commands, DB):
     DB.add_new_user(user_info=info_dir)
     DB.add_command(info=info_dir)
     DB.get_all_records(table_name='Users')
-    #DB.get_all_records(table_name='Cmd_table')
+    DB.get_all_records(table_name='Cmd_table')
     #DB.drop_table(table_name='Users')
 
 
@@ -60,14 +60,19 @@ async def process_start_command(message: types.Message):
 async def process_help_command(message: types.Message):
     await message.reply("start - краткая информация о боте \n" \
                         " help - список команд с описанием \n" \
-                        "photo - получить мнгновенную фотографию вигвама \n")
+                        " temperature - показания термометра \n" \
+                        " humidity - показания гигрометра \n" \
+                        "photo - получить мгновенную фотографию вигвама \n")
     commands = 'help'
     add_info_to_db(message, commands, DB)
 
 @dp.message_handler(commands=['photo'])
 async def process_photo_command(message: types.Message):
     try:
-        photo.get_image()
+        dir=photo.get_image()
+        with open(f'{dir}', "rb") as file:
+            data = file.read()
+        await bot.send_photo(message.from_user.id, photo=data)
     except ValueError as err:
         await bot.send_message(message.from_user.id, f"Изображение пустое, пожалуйста, проверьте подключение камеры. {err}")
         return
@@ -75,7 +80,7 @@ async def process_photo_command(message: types.Message):
     add_info_to_db(message, commands, DB)
 
 @dp.message_handler(commands=['temperature'])
-async def process_photo_command(message: types.Message):
+async def process_temperature_command(message: types.Message):
     try:
         await bot.send_message(message.from_user.id, f"Температура в Вигваме {AC.get_temperature(msg='t')} *C.")
     except BufferError as err:
@@ -85,7 +90,7 @@ async def process_photo_command(message: types.Message):
     add_info_to_db(message, commands, DB)
 
 @dp.message_handler(commands=['humidity'])
-async def process_photo_command(message: types.Message):
+async def process_humidity_command(message: types.Message):
     try:
         await bot.send_message(message.from_user.id, f"Влажность в Вигваме {AC.get_humidity(msg='h')} %.")
     except ValueError as err:

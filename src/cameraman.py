@@ -45,6 +45,7 @@ class Cameraman:
         file = cv2.imwrite(file_name, img)
         msg2 = f' Фотография успешно сохранена! Путь: {file_name}'
         self.logger.info(msg2)
+        return file_name
 
 
 

@@ -27,7 +27,7 @@ String get_humidity() {
 void con(){
   String msg =Serial.readString();
   if (digitalRead(CONPIN)==0){
-    Serial.println("open");
+    Serial.println("Внимание! Произошел взлом!");
    if (digitalRead(CONPIN)==1) {
       Serial.println("close");
     }
